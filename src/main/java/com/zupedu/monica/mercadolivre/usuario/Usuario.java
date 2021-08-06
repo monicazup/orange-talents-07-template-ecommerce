@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.Assert;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.swing.*;
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
@@ -19,7 +16,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank @Email
+    @NotBlank @Email @Column(unique = true)
     private String email;
     @NotBlank @Size(min = 6)
     private String senha;

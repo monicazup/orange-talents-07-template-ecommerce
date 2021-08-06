@@ -15,7 +15,7 @@ import javax.validation.Valid;
 public class UsuarioController {
 
     @Autowired
-    EntityManager manager;
+    private EntityManager manager;
 
     @PostMapping @Transactional
     public void cadastrar(@RequestBody @Valid UsuarioRequest request){

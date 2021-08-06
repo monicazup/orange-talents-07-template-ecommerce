@@ -9,7 +9,7 @@ import java.util.Objects;
 public class SenhaLimpa {
     @NotNull
     @Size(min = 6)
-    String senha;
+    private String senha;
 
     public SenhaLimpa(String senha) {
         this.senha = senha;
