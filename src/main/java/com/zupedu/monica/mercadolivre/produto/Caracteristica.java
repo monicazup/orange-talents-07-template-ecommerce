@@ -2,6 +2,7 @@ package com.zupedu.monica.mercadolivre.produto;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 @Entity
 public class Caracteristica {
@@ -40,4 +41,17 @@ public class Caracteristica {
 
     @Deprecated
     public Caracteristica(){}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Caracteristica that = (Caracteristica) o;
+        return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao) && Objects.equals(produto, that.produto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, descricao, produto);
+    }
 }
