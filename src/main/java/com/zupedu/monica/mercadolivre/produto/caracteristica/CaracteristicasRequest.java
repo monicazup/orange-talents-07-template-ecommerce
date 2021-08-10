@@ -1,4 +1,4 @@
-package com.zupedu.monica.mercadolivre.produto;
+package com.zupedu.monica.mercadolivre.produto.caracteristica;
 
 
 import javax.validation.constraints.NotBlank;

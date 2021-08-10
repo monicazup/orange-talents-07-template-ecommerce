@@ -2,9 +2,10 @@ package com.zupedu.monica.mercadolivre.produto;
 
 import com.zupedu.monica.mercadolivre.categoria.Categoria;
 import com.zupedu.monica.mercadolivre.config.ApiException;
+import com.zupedu.monica.mercadolivre.produto.caracteristica.Caracteristica;
+import com.zupedu.monica.mercadolivre.produto.caracteristica.CaracteristicasRequest;
 import com.zupedu.monica.mercadolivre.usuario.Usuario;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
@@ -41,7 +42,7 @@ public class ProdutoRequest {
 
     public Produto toEntity(EntityManager manager, Usuario usuario) {
         //Não funcionou
-        // Set<Caracteristica> caracteristicas = caracteristicasDoProduto.toModel(this.caracteristicasDoProduto);
+        //Set<Caracteristica> caracteristicas = caracteristicasDoProduto.toModel(this.caracteristicasDoProduto);
 
 
         Set<Caracteristica> caracteristicas = converterCaracteristicasRequestToModel(this.caracteristicasDoProduto);
