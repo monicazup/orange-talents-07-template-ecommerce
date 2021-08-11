@@ -24,7 +24,7 @@ public class CustomHandlerAdvice {
         Collection<String> messages = new ArrayList<>();
         for (ConstraintViolation c : constraintViolations
         ) {
-            String message = "Campo: " + c.getPropertyPath().toString().toUpperCase() + " apresentou o seguinte erro: " + c.getMessageTemplate();
+            String message = "Campo: " + c.getPropertyPath().toString().toUpperCase() + " apresentou o seguinte erro: " + c.getMessage();
             messages.add(message);
         }
         ErroPadronizado erroPadronizado = new ErroPadronizado(messages);
