@@ -5,6 +5,10 @@ import com.zupedu.monica.mercadolivre.produto.avaliacao.AvaliacaoProduto;
 import com.zupedu.monica.mercadolivre.produto.avaliacao.AvaliacaoProdutoRequest;
 import com.zupedu.monica.mercadolivre.produto.imagem.ImagemRequest;
 import com.zupedu.monica.mercadolivre.produto.imagem.Uploader;
+import com.zupedu.monica.mercadolivre.produto.pergunta.DisparadorEmail;
+import com.zupedu.monica.mercadolivre.produto.pergunta.Email;
+import com.zupedu.monica.mercadolivre.produto.pergunta.PerguntaSobreProduto;
+import com.zupedu.monica.mercadolivre.produto.pergunta.PerguntaSobreProdutoRequest;
 import com.zupedu.monica.mercadolivre.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +21,8 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Set;
 
+import static com.zupedu.monica.mercadolivre.produto.Produto.buscaPorId;
+
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
@@ -26,6 +32,9 @@ public class ProdutoController {
 
     @Autowired
     Uploader uploader;
+
+    @Autowired
+    DisparadorEmail disparadorEmail;
 
     @PostMapping
     @Transactional
@@ -72,5 +81,27 @@ public class ProdutoController {
         AvaliacaoProduto avaliacao = request.toEntity(usuario, produto);
         manager.persist(avaliacao);
 
+    }
+
+    @PostMapping("/{id}/pergunta")
+    @Transactional
+    public void enviarPergunta(@PathVariable("id") Long id,
+                               @RequestBody @Valid PerguntaSobreProdutoRequest request,
+                               @AuthenticationPrincipal Usuario usuarioAutor) {
+        Produto produto = buscaPorId(manager, id);
+        Usuario usuarioVendedor = produto.getUsuario();
+
+        PerguntaSobreProduto pergunta = request.toEntity(usuarioAutor, usuarioVendedor, produto);
+
+        manager.persist(pergunta);
+
+        Email email = new Email(
+                id,
+                "nao-responda@mercadolivre.com.br",
+                usuarioVendedor.getUsername(),
+                pergunta.toEmail()
+        );
+
+        disparadorEmail.enviar(email);
     }
 }

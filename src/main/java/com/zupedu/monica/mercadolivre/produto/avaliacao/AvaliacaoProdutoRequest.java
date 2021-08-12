@@ -3,7 +3,6 @@ package com.zupedu.monica.mercadolivre.produto.avaliacao;
 import com.zupedu.monica.mercadolivre.produto.Produto;
 import com.zupedu.monica.mercadolivre.usuario.Usuario;
 
-import javax.persistence.EntityManager;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

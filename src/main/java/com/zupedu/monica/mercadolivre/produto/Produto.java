@@ -1,9 +1,11 @@
 package com.zupedu.monica.mercadolivre.produto;
 
 import com.zupedu.monica.mercadolivre.categoria.Categoria;
+import com.zupedu.monica.mercadolivre.config.ApiException;
 import com.zupedu.monica.mercadolivre.produto.caracteristica.Caracteristica;
 import com.zupedu.monica.mercadolivre.produto.imagem.ImagemProduto;
 import com.zupedu.monica.mercadolivre.usuario.Usuario;
+import org.springframework.http.HttpStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -77,4 +79,18 @@ public class Produto {
     public boolean pertenceAoUsuario(Usuario possivelUsuario) {
         return this.usuario.equals(possivelUsuario);
     }
+
+    public static Produto buscaPorId(EntityManager manager, Long id) {
+        Produto produto = manager.find(Produto.class, id);
+        if (produto == null) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "Produto não encontrado");
+        }
+        return produto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+
 }
