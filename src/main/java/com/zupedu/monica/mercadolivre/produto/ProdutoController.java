@@ -38,7 +38,8 @@ public class ProdutoController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid ProdutoRequest request, @AuthenticationPrincipal Usuario usuario) {
+    public void cadastrar(@RequestBody @Valid ProdutoRequest request,
+                          @AuthenticationPrincipal Usuario usuario) {
 
         Produto produto = request.toEntity(manager, usuario);
         manager.persist(produto);
@@ -74,16 +75,13 @@ public class ProdutoController {
     public void avaliarProduto(@PathVariable("id") Long id,
                                @RequestBody AvaliacaoProdutoRequest request,
                                @AuthenticationPrincipal Usuario usuario) {
-        Produto produto = manager.find(Produto.class, id);
-        if (produto == null) {
-            throw new ApiException(HttpStatus.NOT_FOUND, "Produto não encontrado");
-        }
+        Produto produto = buscaPorId(manager, id);
         AvaliacaoProduto avaliacao = request.toEntity(usuario, produto);
         manager.persist(avaliacao);
 
     }
 
-    @PostMapping("/{id}/pergunta")
+    @PostMapping("/{id}/perguntar")
     @Transactional
     public void enviarPergunta(@PathVariable("id") Long id,
                                @RequestBody @Valid PerguntaSobreProdutoRequest request,
@@ -104,4 +102,12 @@ public class ProdutoController {
 
         disparadorEmail.enviar(email);
     }
+
+    @GetMapping("/{id}")
+    public DetalheProdutoView detalhar(@PathVariable("id") Long id) {
+        Produto produto = buscaPorId(manager, id);
+
+        return new DetalheProdutoView(produto);
+    }
+
 }

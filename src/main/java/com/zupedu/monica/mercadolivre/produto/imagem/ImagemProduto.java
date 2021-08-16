@@ -41,4 +41,8 @@ public class ImagemProduto {
     public int hashCode() {
         return Objects.hash(produto, link);
     }
+
+    public String getLink() {
+        return link;
+    }
 }
