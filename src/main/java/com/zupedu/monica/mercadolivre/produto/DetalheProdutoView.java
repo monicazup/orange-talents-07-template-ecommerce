@@ -55,7 +55,6 @@ public class DetalheProdutoView {
 
     }
 
-
     /*
     Getters e setters
     */

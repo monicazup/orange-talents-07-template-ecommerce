@@ -1,5 +1,8 @@
 package com.zupedu.monica.mercadolivre.anotacao;
 
+import com.zupedu.monica.mercadolivre.config.ApiException;
+import org.springframework.http.HttpStatus;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -28,8 +31,9 @@ public class CampoUnicoValidator implements ConstraintValidator<CampoUnico, Stri
         Query query = entityManager.createQuery("SELECT 1 FROM " + entidade.getName() + " WHERE " + campo + " = :valor");
         query.setParameter("valor", valor);
         List<?> resultado = query.getResultList();
-        if (resultado.size() > 0)
+        if (resultado.size() > 0) {
             return false;
+        }
         return true;
     }
 }

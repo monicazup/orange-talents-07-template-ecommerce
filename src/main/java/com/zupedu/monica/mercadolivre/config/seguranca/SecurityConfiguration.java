@@ -57,40 +57,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
     }
 
-
-    //    Configura recursos estáticos
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        super.configure(web);
-//    }
-
-
-    //    @Override //pede public void, invés de protected
-//    public void configure(HttpSecurity http) throws Exception {
-
-
-//
-
-//          http.authorizeRequests
-//                .antMatchers(HttpMethod.POST, "/categorias").permitAll()
-//                .antMatchers(HttpMethod.POST, "/Usuario").permitAll()
-//                .antMatchers("/auth/**").permitAll()
-//                .anyRequest().authenticated()
-//            .and()
-//                .cors()
-//                //habilita o cors
-//            .and()
-//                .csrf().disable()
-//                //csrf: proteção contra um tipo de ataque
-//                // que não se aplica a nossa api Stateless
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .addFilterBefore(new JwtAuthenticationFilter)
-////                .and()
-////                .addFilterBefore(new )
-
-//
-//    }
-
-
 }
